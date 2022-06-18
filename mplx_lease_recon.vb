@@ -2,6 +2,7 @@ Sub PP_Reconciliation_Report()
 '
 ' MW AP PowerPlan Reconciliation Report Macro
 ' Used to format the MW AP PowerPlan Reconciliation Report to hide numerous columns that are not used
+' Testing comment for update to github
 for the recon.
 '
     ActiveSheet.Name = "MW AP PowerPlan Recon Report"
@@ -31,9 +32,7 @@ for the recon.
         SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
         ReplaceFormat:=False
         Range("O8").Value = "Serial Number"
-        Range("O9").FormulaR1C1 = "=IFERROR(TRIM(IFERROR(LEFT(RIGHT(RC[1],LEN(RC[1])-FIND(""SN"",RC[1]
-)+1),FIND("" "",RIGHT(RC[1],LEN(RC[1])-FIND(""SN"",RC[1])+1))),RIGHT(RC[1],LEN(RC[1])-FIND(""SN"",RC[1
-])+1))),""AP did not provide SN"")"
+        Range("O9").FormulaR1C1 = "=IFERROR(TRIM(IFERROR(LEFT(RIGHT(RC[1],LEN(RC[1])-FIND(""SN"",RC[1])+1),FIND("" "",RIGHT(RC[1],LEN(RC[1])-FIND(""SN"",RC[1])+1))),RIGHT(RC[1],LEN(RC[1])-FIND(""SN"",RC[1])+1))),""AP did not provide SN"")"
         Range("O9").Select
         Selection.AutoFill Destination:=Range("$O$9:$O" & LastRow)
         Range("O:O").Copy
@@ -42,9 +41,7 @@ for the recon.
         SN_Val = 9
         Do While SN_Val <= LastRow
             If Cells(SN_Val, 15) = "AP did not provide SN" Then
-                Cells(SN_Val, 15).FormulaR1C1 = "=IFERROR(TRIM(IFERROR(LEFT(RIGHT(RC[1],LEN(RC[1])-FIN
-D(""HL"",RC[1])+1),FIND("" "",RIGHT(RC[1],LEN(RC[1])-FIND(""HL"",RC[1])+1))),RIGHT(RC[1],LEN(RC[1])-FI
-ND(""HL"",RC[1])+1))),""AP did not provide SN"")"
+                Cells(SN_Val, 15).FormulaR1C1 = "=IFERROR(TRIM(IFERROR(LEFT(RIGHT(RC[1],LEN(RC[1])-FIND(""HL"",RC[1])+1),FIND("" "",RIGHT(RC[1],LEN(RC[1])-FIND(""HL"",RC[1])+1))),RIGHT(RC[1],LEN(RC[1])-FIND(""HL"",RC[1])+1))),""AP did not provide SN"")"
             End If
             SN_Val = SN_Val + 1
         Loop
@@ -64,9 +61,6 @@ ND(""HL"",RC[1])+1))),""AP did not provide SN"")"
 'ILR's always start with: OE, RE, RC, EF, VH
 'also shield "Remove from Import"
     Range("P8").Value = "Researched ILR"
-
-
-Module1 - 2
     Dim True_ILR As Integer
     True_ILR = 9
     Do While True_ILR <= LastRow
@@ -76,8 +70,7 @@ Module1 - 2
                     If Left(Cells(True_ILR, 16), 2) <> "EF" Then
                         If Left(Cells(True_ILR, 16), 2) <> "VH" Then
                             Cells(True_ILR, 16).FormulaR1C1 = _
-                                "=IFERROR(INDEX('ILR Report for AP'!C2:C2,MATCH(RC[-1],'ILR Report for
- AP'!C7:C7,0)),""SN not in AP Report"")"
+                                "=IFERROR(INDEX('ILR Report for AP'!C2:C2,MATCH(RC[-1],'ILR Report for AP'!C7:C7,0)),""SN not in AP Report"")"
                         End If
                     End If
                 End If
@@ -105,8 +98,7 @@ Module1 - 2
 '1st Do While and If series: If AP has not provided a SN
 'If the SN was not in the PP Rec, it may be a new lease and needs to be added to the Rec
 'If the SN resulted in an ILR that was retired, this is noted in column Q
-'And finally - if the SN resulted in an ILR that is in-service AND in the PP Rec, then the ILR is vali
-d
+'And finally - if the SN resulted in an ILR that is in-service AND in the PP Rec, then the ILR is valid
 'Oh, and I also need to code this so that it iterates over the entire column of Researched ILR's
     Range("Q8").Value = "ILR Validation"
     Dim ILR_Val As Integer
@@ -136,9 +128,6 @@ d
             Cells(ILR_Val, 17).Value = "In Service"
         ElseIf Cells(ILR_Val, 17) = "ILR not in PP Rec" Then
             Cells(ILR_Val, 18).FormulaR1C1 = _
-
-
-Module1 - 3
                 "=VLOOKUP(RC[-2],'ILR Report for AP'!C2:C4,3,0)"
             If Cells(ILR_Val, 18).Value = "Retired" Then
                 Cells(ILR_Val, 18).FormulaR1C1 = _
@@ -210,9 +199,6 @@ Module1 - 3
                 Cells(JE_Acct_Row, 18).Copy
                 Range("R" & JE_Acct_Row).PasteSpecial xlPasteValues
                 If Cells(JE_Acct_Row, 18) = "ILR Retired" Then
-
-
-Module1 - 4
                     If Left(Cells(JE_Acct_Row, 16), 2) = "OE" Then
                         Cells(JE_Acct_Row, 22).Value = "'7500030"
                     ElseIf Left(Cells(JE_Acct_Row, 16), 2) = "VH" Then
@@ -284,9 +270,6 @@ Module1 - 4
         .TintAndShade = -0.499984740745262
         .Weight = xlThin
     End With
-
-
-Module1 - 5
     With Selection.Borders(xlEdgeRight)
         .LineStyle = xlContinuous
         .ThemeColor = 1
@@ -358,8 +341,5 @@ Module1 - 5
     Range("Q7").Select
     Selection.NumberFormat = "mmm dd h:mm AM/PM"
     Range("P:P").ColumnWidth = 15
-
-
-Module1 - 6
     Range("R9").Select
 End Sub

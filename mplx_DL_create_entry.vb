@@ -238,9 +238,6 @@ Sub create_GL()
             If Worksheets("GL Entry Input").Range("I" & GL_ENTRY).Value < 0 Then
                 Worksheets("GL Entry Input").Range("J" & GL_ENTRY).FormulaR1C1 = "=-ROUND('GL Calculations'!R" & GL_ACCT_INPUT & "C14,2)"
                 Worksheets("GL Entry Input").Range("I" & GL_ENTRY).ClearContents
-
-
-Module1 - 5
             End If
             Worksheets("GL Entry Input").Range("K" & GL_ENTRY).FormulaR1C1 = "=CONCATENATE(TEXT(R9C13,""Mmm-YY""),"" Direct Labor Allocation"")"
             GL_ACCT_INPUT = GL_ACCT_INPUT + 1
